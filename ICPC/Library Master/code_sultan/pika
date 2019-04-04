@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+if [ "$2" == "-d" ]; then
+	g++ -o "$1" "$1.cpp" -std=c++14 -D_GLIBCXX_DEBUG -D__DEBUG -g
+else
+	g++ -o "$1" "$1.cpp" -std=c++14 -O2 -Wall
+fi
+echo "COMPILE OK"
+time "./$1" < "$1.in"
+

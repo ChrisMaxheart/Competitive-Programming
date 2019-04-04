@@ -1,0 +1,87 @@
+# Any line followed by a '#' character is ignored
+# Section headings must be in square brackets
+# Subsections within a section should follow the format:
+#   [filename within code directory][tab character \t][subsection title]
+
+[Data Structure and Basics]
+jomul_ds_bitmask.cpp	Bitmask
+jomul_ds_sam_fenwick.cpp	Sam fenwick tree
+fenwick.cpp	Range fenwick tree
+jomul_ds_ufds.cpp	UFDS
+jomul_ds_segment.cpp	Segment tree
+jomul_ds_backtracking.cpp	Backtracking
+jomul_ds_jerrel_sparse_table.cpp	Sparse Table
+jomul_ds_jerrel_lca.cpp	LCA
+
+[String]
+KMP.cc	KMP
+AhoCorasick.cpp	Aho-Corasick
+Hash.cpp	Hash
+SuffixArray.cpp	SuffixArray
+
+[Graph Basic]
+
+#jomul_g_kruskal_prim.cpp	Kruskal Prim
+jomul_g_dijkstra.cpp	Dijkstra
+jomul_g_bellman_ford.cpp	Bellman Ford
+jomul_g_mcbm.cpp	MCBM
+
+[Graph]
+TwoSat.cpp	2-SAT
+BiconnectedComponent.cpp	Biconnected Component
+BridgeArticulation.cpp	Bridge Articulation
+Dinic.cpp	Dinic Max Flow
+DirectedMST.cpp	Directed MST
+EulerianTour.cpp	Eulerian Cycle
+GeneralMatchingBlossom.cpp	Edmonds Blossom
+HungarianAssignment.cpp	Hungarian Assignment
+MinCostMaxFlowSPFA.cpp	Min Cost Max Flow
+StronglyConnected.cpp	Strongly Connected Component
+LRFlow.cpp	LRFlow
+hopcroft.cpp	Hopcroft Karp
+HLD.cpp	Heavy Light Decomposition
+gomory-hu.cpp	Gomory-Hu
+online-bridge.cpp	Online-Bridge
+SPFA.cpp	SPFA
+
+[Math Basic]
+jomul_m_big_integer.java	Big Integer
+jomul_m_prime.cpp	Prime
+jomul_m_pollard_rho.cpp	Pollard Rho
+
+[Math]
+Euclid.cc	Number theory
+ChineseRemainder.cpp	Chinese Remainder Theorem
+FFT_Generic.cpp	Fast Fourier Transform
+SqrtMod.cpp	Sqrt Mod
+brent.cpp	Brent, Miller Rabin
+
+[Geometry]
+RectInRect.cpp	Rectangle in Rectangle
+geom_basic.cpp	Geometry Basic
+geom_circle.cpp	Geometry Circle
+polygon.cpp	Geometry Polygon
+smallestEnclosingCircle.cpp	Smallest Enclosing Circle
+complex.cpp	Geometry Complex
+LatLong.cc	Latitude Longitude
+Delaunay.cc	Delaunay
+ConvexHull.cc	Convex hull
+
+[Miscellaneaous]
+calendar.java	Calendar Java
+convexhulldp.cpp	Dynamic Convex Hull DP (Max)
+cyclefinding.cpp	Floyd Cycle Finding
+josephus.cpp	Josephus
+knightshortestpath.cpp	Knight Shortest Path
+knuth.cpp	DP Knuth
+#vimrc	vimrc
+template.cpp	C++ Template
+template.java	Java Template
+pika		pika
+
+[SHK]
+
+shk_c++.cpp	SHK C++
+shk_python.py	SHK Python
+# shk_shortcuts.txt	SHK 
+jerrel_shortcuts.txt	Jerrell

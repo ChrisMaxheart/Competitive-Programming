@@ -1,0 +1,17 @@
+Comment highlighted code
+Ctrl + Shift + C
+Uncomment highlighted code
+Ctrl + Shift + X
+
+Indent block.
+Tab
+Dedent block.
+Shift + Tab
+
+Line cut.
+Ctrl + L
+Line copy.
+Ctrl + Shift + T
+
+g++ x.cpp -std=c++11 -o x 
+x.exe < test.txt
