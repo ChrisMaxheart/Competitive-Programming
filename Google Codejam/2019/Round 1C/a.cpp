@@ -132,11 +132,107 @@ int main ()
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    freopen("test.txt", "r", stdin);
+    Tloop {
+        vs seq;
+        vector<bool> dead;
+        Nloop {
+            string x;
+            cin >> x;
+            while (x.size() < 500) {
+                x += x;
+            }
+            seq.pb(x);
+            dead.pb(false);
+        }
 
-    string x;
-    cin >> x;
-    cout << x << endl;
+        string ans = "";
+
+        bool finished = true;
+
+        for (int i = 0; i < 500; i++) {
+            useti temp;
+            // cout << i << " ";
+            for (int j = 0; j < N; j++) {
+                if (dead[j]) {
+                    continue;
+                }
+                auto x = seq[j];
+                // cout << j << " ";
+                if (x[i] == 'R') {
+                    temp.insert(1);
+                } else if (x[i] == 'P') {
+                    temp.insert(2);
+                } else {
+                    temp.insert(3);
+                }
+            }
+            // cout << endl;
+            if (temp.size() == 3) {
+                break;
+            } else if (temp.size() == 2) {
+                if(temp.find(1) == temp.end()) {
+                    ans += 'S';
+                    for (int j = 0; j < N; j++) {
+                        auto x = seq[j];
+                        if (x[i] == 'P') {
+                            dead[j] = true;
+                        }
+                    }
+                } else if(temp.find(2) == temp.end()) {
+                    ans += 'R';
+                    for (int j = 0; j < N; j++) {
+                        auto x = seq[j];
+                        if (x[i] == 'S') {
+                            dead[j] = true;
+                        }
+                    }
+                } else {
+                    ans += 'P';
+                    for (int j = 0; j < N; j++) {
+                        auto x = seq[j];
+                        if (x[i] == 'R') {
+                            dead[j] = true;
+                        }
+                    }
+                }
+            } else if (temp.size() == 1) {
+                if (temp.find(1) != temp.end()) {
+                    ans += 'P';
+                    for (int j = 0; j < dead.size(); j++) {
+                        dead[j] = true;
+                    }
+                    break;
+                } else if (temp.find(2) != temp.end()) {
+                    ans += 'S';
+                    for (int j = 0; j < dead.size(); j++) {
+                        dead[j] = true;
+                    }
+                    break;
+                } else {
+                    ans += 'R';
+                    for (int j = 0; j < dead.size(); j++) {
+                        dead[j] = true;
+                    }
+                    break;
+                }
+            } else {
+                break;
+            }
+
+        }
+
+        for (auto x: dead) {
+            if (!x) {
+                finished = false;
+            }
+        }
+
+        if (!finished) {
+            printcaseg << "IMPOSSIBLE" << endl;
+        } else {
+            printcaseg << ans << endl;
+        }
+    }
 
     return 0;
 }

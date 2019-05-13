@@ -132,11 +132,25 @@ int main ()
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    freopen("test.txt", "r", stdin);
+    int ctr = 1;
 
-    string x;
-    cin >> x;
-    cout << x << endl;
+    Tloop {
+        int N;
+        cin >> N;
+        string x;
+        cin >> x;
+
+        cout << "Case #" << ctr << ": ";
+        for(auto ch: x) {
+            if (ch == 'S') {
+                cout << "E";
+            } else {
+                cout << "S";
+            }
+        }
+        ctr++;
+        cout << endl;
+    }
 
     return 0;
 }

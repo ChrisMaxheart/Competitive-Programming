@@ -132,11 +132,76 @@ int main ()
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    freopen("test.txt", "r", stdin);
-
-    string x;
-    cin >> x;
-    cout << x << endl;
+    // mesti beresin edge case kalo yang diujung sama berurutan, agak ribet yah kelihatannya
+    Tloop {
+        setll memo;
+        vll lst;
+        vll lst2;
+        vll lst3;
+        ll N;
+        ll L;
+        cin >> N >> L;
+        printcaseg;
+        for (ll i = 0; i < L; i++) {
+            bool can = false;
+            ll x;
+            cin >> x;
+            for (ll j = 2; j <= N*N; j++) {
+                if (x % j == 0) {
+                    // cout << x << " " << j << " " << x/j << endl;
+                    memo.insert(j);
+                    lst.pb(j);
+                    lst2.pb(x/j);
+                    memo.insert(x/j);
+                    break;
+                }
+            }
+        }
+        vll ciph;
+        assert(memo.size() == 26);
+        assert(lst.size() == L);
+        assert(lst2.size() == L);
+        for (auto x: memo) {
+            // cout << x << endl;
+            ciph.pb(x);
+        }
+        ll lastt = -1;
+        for (ll i = 0; i < L; i++) {
+            if (i == 0) {
+                if (lst[0] != lst[1] && lst[0] != lst2[1]) {
+                    lst3.pb(lst[0]);
+                    lastt = lst2[0];
+                } else {
+                    lst3.pb(lst2[0]);
+                    lastt = lst[0];
+                }
+            } else {
+                lst3.pb(lastt);
+                if (lst[i] != lastt) {
+                    lastt = lst[i];
+                } else {
+                    lastt = lst2[i];
+                }
+            }
+        }
+        lst3.pb(lastt);
+        // for (auto x : lst3) {
+        //     cout << x << endl;
+        // }
+        assert(lst3.size() == L+1);
+        for (auto x: lst3) {
+            for (ll i = 0; i < ciph.size(); i++) {
+                char xx = 'A';
+                if(x == ciph[i]) {
+                    xx += i;
+                    // cout << i << " ";
+                    cout << xx;
+                    break;
+                }
+            }
+        }
+        cout << endl;
+    }
 
     return 0;
 }

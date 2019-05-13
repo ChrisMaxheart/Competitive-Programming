@@ -132,11 +132,69 @@ int main ()
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    freopen("test.txt", "r", stdin);
+    umapllll memo;
+    memo[5] = pow(2, 5);
+    memo[6] = pow(2, 6);
+    memo[7] = pow(2, 7);
+    memo[8] = pow(2, 8);
+    memo[9] = pow(2, 9);
+    memo[10] = pow(2, 10);
+    memo[11] = pow(2, 11);
+    memo[12] = pow(2, 12);
+    memo[13] = pow(2, 13);
+    memo[14] = pow(2, 14);
+    memo[15] = pow(2, 15);
+    memo[16] = pow(2, 16);
+    memo[18] = pow(2, 18);
+    memo[20] = pow(2, 20);
+    memo[25] = pow(2, 25);
+    memo[28] = pow(2, 28);
+    memo[30] = pow(2, 30);
+    memo[33] = pow(2, 33);
+    memo[37] = pow(2, 37);
+    memo[40] = pow(2, 40);
+    memo[49] = pow(2, 49);
+    memo[50] = pow(2, 50);
+    memo[56] = pow(2, 56);
+    bool xx = true;
+    Tloop {
+        if (xx) {
+            int yy;
+            cin >> yy;
+            xx = false;
+        }
+        ll h1, h2;
 
-    string x;
-    cin >> x;
-    cout << x << endl;
+        cout << 200 << endl;
+        cout << flush;
+        cin >> h1;
 
+        ll d = h1 / memo[50];
+        ll e = (h1 % memo[50]) / memo[40];
+        ll f = (h1 % memo[40]) / memo[33];
+
+        cout << 56 << endl;
+        cout << flush;
+        cin >> h2;
+        h2 -= d * memo[14];
+        // cerr << h2 << " ";
+        h2 -= e * memo[11];
+        // cerr << h2 << " ";
+        h2 -= f * memo[9];
+        // cerr << h2 << " ";
+        ll a = h2 / memo[56];
+        ll b = (h2 % memo[56]) / memo[28];
+        ll c = (h2 % memo[28]) / memo[18];
+        cout << a << " " << b << " " << c << " " << d << " " << e << " " << f << endl;
+        cout << flush;
+        int hasil;
+        cin >> hasil;
+        cerr << hasil << " ";
+        if (hasil == 1) {
+            continue;
+        } else {
+            return 0;
+        }
+    }
     return 0;
 }

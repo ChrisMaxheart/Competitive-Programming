@@ -3,5 +3,5 @@ project(Competitive_Programming)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Competitive_Programming main.cpp)
+add_executable(Competitive_Programming main.cpp headerlist.cpp)
 add_executable(templatecpp templatecpp.cpp)

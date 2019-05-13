@@ -125,6 +125,34 @@ using namespace std;
             }
             return ans;
         }
+mapii memo;
+vi lst;
+int kali = 0;
+int binser(int left, int right, int cost) {
+    if (left == right) {
+        return left; 
+    }
+    int mid = left + right;
+    mid /= 2;
+    mid++;
+    if (lst[mid] == -1) {
+        if (kali == 1500) {
+            assert(false);
+        }
+        cout << "Q " << mid+1 << endl;
+        cout.flush();
+        kali++;
+        int x;
+        cin >> x;
+        lst[mid] = x;
+        memo[x] = mid;
+    }
+    int need = lst[mid];
+    if (need > cost) {
+        return binser(left, mid-1, cost);
+    }
+    return binser(mid, right, cost);
+}
 
 int main ()
 {
@@ -132,11 +160,42 @@ int main ()
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    freopen("test.txt", "r", stdin);
+    int C, A;
+    
+    vi q, ans;
+    cin >> C >> A;
+    for (int i = 0; i < C; i++) {
+        lst.pb(-1);
+    }
+    
+    for (int i = 0; i < A; i++) {
+        int x;
+        cin >> x;
+        q.pb(x);
+    }
 
-    string x;
-    cin >> x;
-    cout << x << endl;
+    memo[-3] = 0;
+    memo[1500000000] = C-1;
+
+    for (auto x: q) {
+        auto xleft = memo.lower_bound(x);
+        --xleft;
+        auto pleft = *xleft;
+        int l = pleft.se;
+        
+        auto xright = memo.upper_bound(x);
+        auto pright = *xright;
+        int r = pright.se;
+        ans.pb(binser(l, r, x) +1);
+    }
+
+    cout << "A ";
+    for (auto x: ans) {
+        cout << x << " ";
+    }
+    cout << endl;
+    cout.flush();
+
 
     return 0;
 }

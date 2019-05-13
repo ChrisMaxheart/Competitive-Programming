@@ -132,11 +132,64 @@ int main ()
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    freopen("test.txt", "r", stdin);
+    Tloop {
+        int P, Q;
+        cin >> P >> Q;
+        vi xlst, ylst, dpx, dpy;
+        for (int i = 0; i < Q+1; i++) {
+            xlst.pb(0);
+            ylst.pb(0);
+        }
+        for (int i = 0; i < P; i++) {
+            int x, y;
+            string dir;
+            cin >> x >> y >> dir;
+            if (dir == "N") {
+                ylst[y+1]++;
+            } else if (dir == "S") {
+                ylst[y]--;
+            } else if (dir == "W") {
+                xlst[x]--;
+            } else {
+                xlst[x+1]++;
+            }
+        }
+        int xmax = -1;
+        int ymax = -1;
 
-    string x;
-    cin >> x;
-    cout << x << endl;
+        int xsum = 0;
+        int ysum = 0;
+        for (auto x: xlst) {
+            xsum += x;
+            dpx.pb(xsum);
+        }
+
+        for (auto x: ylst) {
+            ysum += x;
+            dpy.pb(ysum);
+        }
+
+        int idxx, idxy;
+
+        for (int i = 0; i < dpx.size(); i++) {
+            int x = dpx[i];
+            if (x > xmax) {
+                idxx = i;
+                xmax = x;
+            }
+        }
+
+        for (int i = 0; i < dpy.size(); i++) {
+            int y = dpy[i];
+            if (y > ymax) {
+                idxy = i;
+                ymax = y;
+            }
+        }
+
+        printcaseg << idxx << " " << idxy << endl;
+
+    }
 
     return 0;
 }
