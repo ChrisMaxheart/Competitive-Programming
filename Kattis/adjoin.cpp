@@ -14,8 +14,6 @@ using namespace std;
         #define printcaseu cout << "Case " << count_ << ": "
         #define MOD 1000000007
         #define LSOne(S) ((S)&(-S))
-        #define SZ(S) S.size()
-        #define ALL(S) S.begin(), S.end()
         #define pb push_back
         #define fi first
         #define se second
@@ -128,13 +126,194 @@ using namespace std;
             return ans;
         }
 
+pii furthest(vector<vi> AL, int fromNode) {
+    vi dist;
+
+    for (auto x: AL) {
+        dist.pb(INF);
+    }
+
+    pqdijk dijk;
+    dijk.push(mp(0, fromNode));
+    while(dijk.size() > 0) {
+        auto curr = dijk.top();
+        dijk.pop();
+        if (dist[curr.se] == INF) {
+            dist[curr.se] = curr.fi;
+            for (auto x: AL[curr.se]) {
+                if (dist[x] == INF) {
+                    dijk.push(mp(curr.fi+1, x));
+                }
+            }
+        }
+    }
+
+    int idx = -1;
+    int maxi = -1;
+
+    for (int i = 0; i < AL.size(); i++) {
+        if(dist[i] > maxi) {
+            idx = i;
+            maxi = dist[i];
+        }
+        dist[i] = INF;
+    }
+    return mp(idx, maxi);
+}
+
+int diameter(vector<vi> AL) {
+    pii furthest1 = furthest(AL, 0);
+    pii furthest2 = furthest(AL, furthest1.fi);
+    return furthest2.se;
+}
+
+class UnionFind {
+private:
+    vi p, rank, setSize;
+    int numSets;
+
+public:
+    UnionFind(int N) {
+        setSize.assign(N, 1);
+        numSets = N;
+        rank.assign(N,0);
+        p.assign(N,0);
+        for (int i = 0; i < N; i++) {
+            p[i] = i;
+        }
+    }
+    int findSet(int i) {
+        return (p[i] == i) ? i : (p[i] = findSet(p[i]));
+    }
+    bool isSameSet(int i, int j) {
+        return findSet(i) == findSet(j);
+    }
+    void unionSet(int i, int j) {
+        if(!isSameSet(i,j)) {
+            numSets--;
+            int x = findSet(i);
+            int y = findSet(j);
+            if (rank[x] > rank[y]) {
+                p[y] = x;
+                setSize[x] += setSize[y];
+            } else {
+                p[x] = y;
+                setSize[y] += setSize[x];
+                if(rank[x] == rank[y]) {
+                    rank[y]++;
+                }
+            }
+        }
+    }
+    int numDisjointSets() {
+        return numSets;
+    }
+    int sizeOfSet(int i) {
+        return setSize[findSet(i)];
+    }
+};
+
 int main ()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    
+    int N, M;
+
+    cin >> N >> M;
+
+    vector<vi> AL;
+
+    for (int i = 0; i < N; i++) {
+        vi emp;
+        AL.pb(emp);
+    }
+
+    UnionFind ufds(N);
+
+    for (int i = 0; i < M; i++) {
+        int x, y;
+        cin >> x >> y;
+        AL[x].pb(y);
+        AL[y].pb(x);
+        ufds.unionSet(x, y);
+    }
+
+    if (ufds.numDisjointSets() == 1) {
+        cout << diameter(AL) << endl;
+        return 0;
+    } 
+
+    vector<seti> lst;
+
+    for (int i = 0; i < ufds.numDisjointSets(); i++) {
+        seti emp;
+        lst.pb(emp);
+    }
+
+    umapii idx;
+
+    int ctr = 0;
+
+    for (int i = 0; i < N; i++) {
+        int dummy = ufds.findSet(i);
+        if (idx.find(dummy) == idx.end()) {
+            idx[dummy] = ctr;
+            ctr++;
+        }
+        lst[idx[dummy]].insert(i);
+    }
+
+    vi dialst;
+
+    for (auto x: lst) {
+        umapii idx2;
+        int ctr2 = 0;
+        for (auto y: x) {
+            if (idx2.find(y) == idx2.end()) {
+                idx2[y] = ctr2;
+                ctr2++;
+            }
+        }
+
+        vector<vi> newAL;
+        for (auto y: x) {
+            newAL.pb(AL[y]);
+        }
+
+        for (int i = 0; i < newAL.size(); i++) {
+            for (int j = 0; j < newAL[i].size(); j++) {
+                newAL[i][j] = idx2[newAL[i][j]];
+            }
+        }
+        // dialst.pb(diameter(newAL));
+        dialst.pb(diameter(newAL));
+        // dialst.pb(ceil(diameter(newAL) / 2));
+    } 
+
+    sort(dialst.begin(), dialst.end());
+
+    while(dialst.size() > 1) {
+        int left1 = dialst.back() / 2;
+        int right1 = dialst.back() / 2;
+        if (dialst.back() % 2) {
+            left1++;
+        }
+
+        dialst.pop_back();
+
+        int left2 = dialst.back() / 2;
+        int right2 = dialst.back() / 2;
+        if (dialst.back() % 2) {
+            left2 ++;
+        }
+        dialst.pop_back();
+
+        dialst.pb(max({left1+right1, left1+left2+1, left2+right2}));
+    }
+
+    cout << dialst[0] << endl;
 
     return 0;
 }

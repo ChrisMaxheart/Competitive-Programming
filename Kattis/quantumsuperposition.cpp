@@ -14,8 +14,6 @@ using namespace std;
         #define printcaseu cout << "Case " << count_ << ": "
         #define MOD 1000000007
         #define LSOne(S) ((S)&(-S))
-        #define SZ(S) S.size()
-        #define ALL(S) S.begin(), S.end()
         #define pb push_back
         #define fi first
         #define se second
@@ -134,7 +132,94 @@ int main ()
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    
+    int N1, N2, M1, M2;
 
+    cin >> N1 >> N2 >> M1 >> M2;
+
+    vAL AL, AL2;
+    vector<useti> dist, dist2;
+
+    for (int i = 0; i < N1; i++) {
+        vi emp;
+        AL.pb(emp);
+
+        useti emp2;
+        dist.pb(emp2);
+    }
+
+    for (int i = 0; i < N2; i++) {
+        vi emp;
+        AL2.pb(emp);
+
+        useti emp2;
+        dist2.pb(emp2);
+    }
+
+    for (int i = 0; i < M1; i++) {
+        int x, y;
+        cin >> x >> y;
+        x--; y--;
+        AL[x].pb(y);
+    }
+
+    for (int i = 0; i < M2; i++) {
+        int x, y;
+        cin >> x >> y;
+        x--; y--;
+        AL2[x].pb(y);
+    }
+
+    pqdijk dijk;
+
+    dijk.push(mp(0, 0));
+
+    while(dijk.size() > 0) {
+        auto curr = dijk.top();
+        dijk.pop();
+        if (dist[curr.se].find(curr.fi) == dist[curr.se].end()) {
+            dist[curr.se].insert(curr.fi);
+            for (auto x : AL[curr.se]) {
+                int newdist = curr.fi + 1;
+                if (dist[x].find(newdist) == dist[x].end()) {
+                    dijk.push(mp(newdist, x));
+                }
+            }
+        }
+    }
+
+    dijk.push(mp(0, 0));
+
+    while(dijk.size() > 0) {
+        auto curr = dijk.top();
+        dijk.pop();
+        if (dist2[curr.se].find(curr.fi) == dist2[curr.se].end()) {
+            dist2[curr.se].insert(curr.fi);
+            for (auto x : AL2[curr.se]) {
+                int newdist = curr.fi + 1;
+                if (dist2[x].find(newdist) == dist2[x].end()) {
+                    dijk.push(mp(newdist, x));
+                }
+            }
+        }
+    }
+
+    int Q;
+    cin >> Q;
+    useti final;
+
+    for (auto x: dist[N1-1]) {
+        for (auto y: dist2[N2-1]) {
+            final.insert(x+y);
+        }
+    }
+    for (int i = 0; i < Q; i++) {
+        int x;
+        cin >> x;
+        if (final.find(x) == final.end()) {
+            cout << "No" << endl;
+        } else {
+            cout << "Yes" << endl;
+        }
+    }
     return 0;
 }

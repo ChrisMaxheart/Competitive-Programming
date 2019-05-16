@@ -14,8 +14,6 @@ using namespace std;
         #define printcaseu cout << "Case " << count_ << ": "
         #define MOD 1000000007
         #define LSOne(S) ((S)&(-S))
-        #define SZ(S) S.size()
-        #define ALL(S) S.begin(), S.end()
         #define pb push_back
         #define fi first
         #define se second
@@ -128,13 +126,145 @@ using namespace std;
             return ans;
         }
 
+int encrypt(int r, int c) {
+    return 1000 * r + c;
+}
+
+int decryptrow(int num) {
+    return num / 1000;
+}
+
+int decryptcol(int num) {
+    return num % 1000;
+}
+
 int main ()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    
+    vector<vi> AL;
+    vector<vi> allAL;
+
+    int N;
+
+    vector<vi> pta;
+    vector<vll> dp;
+
+    cin >> N;
+
+    for (int i = 0; i < N + 2; i++) {
+        vi emp;
+        vll emp2;
+        for (int j = 0; j < N + 2; j++) {
+            emp2.pb(0);
+            if (i == 0 || i == N + 1 || j == 0 || j == N + 1) {
+                emp.pb(0);
+            } else {
+                char x;
+                cin >> x;
+                if (x == '.') {
+                    emp.pb(1);
+                } else {
+                    emp.pb(0);
+                }
+            }
+        }
+        pta.pb(emp);
+        dp.pb(emp2);
+    }
+
+    for (int i = 0; i <= encrypt(N+1, N+1); i++) {
+        vi emp;
+        AL.pb(emp);
+        allAL.pb(emp);
+    }
+
+    // for (auto x : pta) {
+    //     for (auto y : x) {
+    //         cout << y << " ";
+    //     } cout << endl;
+    // }
+
+    for (int i = 1; i < N+1; i++) {
+        for (int j = 1; j < N + 1; j++) {
+            if (pta[i][j]) {
+                if (pta[i-1][j]) {
+                    allAL[encrypt(i, j)].pb(encrypt(i-1, j));
+                }
+                if (pta[i+1][j]) {
+                    allAL[encrypt(i, j)].pb(encrypt(i+1, j));
+                    AL[encrypt(i, j)].pb(encrypt(i+1, j));
+                    
+                }
+                if (pta[i][j-1]) {
+                    allAL[encrypt(i, j)].pb(encrypt(i, j-1));
+                    
+                }
+                if (pta[i][j+1]) {
+                    allAL[encrypt(i, j)].pb(encrypt(i, j+1));
+                    AL[encrypt(i, j)].pb(encrypt(i, j+1));
+                }
+            }
+        }
+    }
+
+    qi bfs;
+    useti visited;
+
+    bfs.push(encrypt(1, 1));
+
+    while(bfs.size() > 0) {
+        auto curr = bfs.front();
+        bfs.pop();
+        if (visited.find(curr) == visited.end()) {
+            visited.insert(curr);
+            for (auto x : allAL[curr]) {
+                if (visited.find(x) == visited.end()) {
+                    bfs.push(x);
+                }
+            }
+        }
+    }
+
+    // for (auto x : visited) {
+    //     cout << decryptrow(x) << " " << decryptcol(x) << endl;
+    // }
+
+    if (visited.find(encrypt(N, N)) == visited.end()) {
+        cout << "INCONCEIVABLE" << endl;
+        return 0;
+    }
+
+
+    for (int i = 1; i < N+1; i++) {
+        for (int j = 1; j < N+1; j++) {
+            if (!pta[i][j]) {
+                continue;
+            }
+            if (i == 1 && j == 1) {
+                dp[i][j] = 1;
+            } else {
+                dp[i][j] = dp[i-1][j] + dp[i][j-1];
+                dp[i][j] %= (ll(pow(ll(2), ll(31))) - ll(1));
+            }
+        }
+    }
+
+    // for (auto x : dp) {
+    //     for (auto y: x) {
+    //         cout << y << " ";
+    //     } cout << endl;
+    // }
+
+
+    if (dp[N][N]) {
+        cout << dp[N][N] << endl;
+    } else {
+        cout << "THE GAME IS A LIE" << endl;
+    }
+
 
     return 0;
 }

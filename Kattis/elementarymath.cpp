@@ -14,8 +14,6 @@ using namespace std;
         #define printcaseu cout << "Case " << count_ << ": "
         #define MOD 1000000007
         #define LSOne(S) ((S)&(-S))
-        #define SZ(S) S.size()
-        #define ALL(S) S.begin(), S.end()
         #define pb push_back
         #define fi first
         #define se second
@@ -128,13 +126,156 @@ using namespace std;
             return ans;
         }
 
+const int MAXN1 = 10000;
+const int MAXN2 = 10000;
+const int MAXM = 150000;
+
+class HopcroftKarp {
+private:
+    int n1, n2, edges, last[MAXN1], prev[MAXM], head[MAXM];
+    int dist[MAXN1], Q[MAXN1];
+    bool used[MAXN1], vis[MAXN1];
+
+    void bfs() {
+        fill(dist, dist + n1, -1);
+        int sizeQ = 0;
+        for (int u = 0; u < n1; ++u) {
+            if (!used[u]) {
+                Q[sizeQ++] = u;
+                dist[u] = 0;
+            }
+        }
+        for (int i = 0; i < sizeQ; i++) {
+            int u1 = Q[i];
+            for (int e = last[u1]; e >= 0; e = prev[e]) {
+                int u2 = matching[head[e]];
+                if (u2 >= 0 && dist[u2] < 0) {
+                    dist[u2] = dist[u1] + 1;
+                    Q[sizeQ++] = u2;
+                }
+            }
+        }
+    }
+
+    bool dfs(int u1) {
+        vis[u1] = true;
+        for (int e = last[u1]; e >= 0; e = prev[e]) {
+            int v = head[e];
+            int u2 = matching[v];
+            if (u2 < 0 || !vis[u2] && dist[u2] == dist[u1] + 1 && dfs(u2)) {
+                matching[v] = u1;
+                used[u1] = true;
+                return true;
+            }
+        }
+        return false;
+    }
+
+public:
+    // the matching data will be saved in the matching int array
+    // matching[1] = 3, means node 1 in right is paired to node 3 in left
+    int matching[MAXN2];
+    HopcroftKarp(int _n1, int _n2) {
+        n1 = _n1;
+        n2 = _n2;
+        edges = 0;
+        fill(last, last + n1, -1);
+    }
+
+    void addEdge(int u, int v) {
+        head[edges] = v;
+        prev[edges] = last[u];
+        last[u] = edges++;
+    }
+
+    int maxMatching() {
+        fill(used, used + n1, false);
+        fill(matching, matching + n2, -1);
+        for (int res = 0;;) {
+            bfs();
+            fill(vis, vis + n1, false);
+            int f = 0;
+            for (int u = 0; u < n1; ++u)
+                if (!used[u] && dfs(u))
+                    ++f;
+            if (!f)
+                return res;
+            res += f;
+        }
+    }
+};
+
 int main ()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    
+    vector<pllll> lst;
+    Nloop {
+        ll x, y;
+        cin >> x >> y;
+        lst.pb(mp(x, y));
+    }
 
+    ll idx = 0;
+    HopcroftKarp mcbm(N, 3* N);
+    umapllll lstans;
+    umapllll rvrs;
+
+    for (int i = 0; i < N; i++) {
+        auto elem = lst[i];
+        ll ans1 = elem.fi + elem.se;
+        if (lstans.find(ans1) == lstans.end()) {
+            lstans[ans1] = idx;
+            rvrs[idx] = ans1;
+            idx++;
+        }
+        mcbm.addEdge(i, lstans[ans1]);
+        ll ans2 = elem.fi - elem.se;
+        if (lstans.find(ans2) == lstans.end()) {
+            lstans[ans2] = idx;
+            rvrs[idx] = ans2;
+            idx++;
+        }
+        mcbm.addEdge(i, lstans[ans2]);
+        ll ans3 = elem.fi * elem.se;
+        if (lstans.find(ans3) == lstans.end()) {
+            lstans[ans3] = idx;
+            rvrs[idx] = ans3;
+            idx++;
+        }
+        // cout << ans1 << endl << ans2 << endl << ans3 << endl;
+        mcbm.addEdge(i, lstans[ans3]);
+    }
+
+    if (mcbm.maxMatching() < N) {
+        cout << "impossible" << endl;
+    } else {
+        mapllll ans;
+        for (int i = 0; i < idx; i++) {
+            auto idx2 = mcbm.matching[i];
+            if (idx2 == -1) {
+                continue;
+            }
+            ans[idx2] = i;
+            // cout << idx2 << endl;
+        }
+        for (int i = 0; i < N; i++) {
+            auto elem = lst[i];
+            auto elem1 = elem.fi;
+            auto elem2 = elem.se;
+            auto hasil = rvrs[ans[i]];
+            string op;
+            if (hasil == elem1+elem2) {
+                op = "+";
+            } else if (hasil == elem1-elem2) {
+                op = "-";
+            } else {
+                op = "*";
+            }
+            cout << elem1 << " " << op << " " << elem2 << " = " << hasil << endl;
+        }
+    }
     return 0;
 }

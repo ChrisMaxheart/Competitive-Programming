@@ -14,8 +14,6 @@ using namespace std;
         #define printcaseu cout << "Case " << count_ << ": "
         #define MOD 1000000007
         #define LSOne(S) ((S)&(-S))
-        #define SZ(S) S.size()
-        #define ALL(S) S.begin(), S.end()
         #define pb push_back
         #define fi first
         #define se second
@@ -128,13 +126,57 @@ using namespace std;
             return ans;
         }
 
+map<pair<int, bool>, int> memo;
+
+int N;
+vi speed;
+
+int recurs(int mask, bool tofront) {
+    if (mask == pow(2, N) - 1) {
+        return 0;
+    }
+    if (memo.find(mp(mask, tofront)) == memo.end()) {
+        if (tofront) {
+            int mini = INF;
+            for (int i = 0; i < N; i++) {
+                if (((1 << i) & mask) != 0) {
+                    continue;
+                }
+                for (int j = i+1; j < N; j++) {
+                    if (((1 << j) & mask) == 0) {
+                        mini = min(mini, max(speed[i], speed[j]) + recurs(mask | (1 << i) | (1 << j), !tofront));
+                    }
+                }
+            }
+            memo[mp(mask, tofront)] = mini;
+        } else {
+            int mini = INF;
+            for (int i = 0; i < N; i++) {
+                if (((1 << i) & mask) != 0) {
+                    mini = min(mini, speed[i] + recurs(mask ^ (1 << i), !tofront));
+                }
+            }
+            memo[mp(mask, tofront)] = mini;
+        }
+    }
+    return memo[mp(mask, tofront)];
+}
+
 int main ()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    
+    int mask = 0;
+    cin >> N;
+    for(int i = 0; i < N; i++) {
+        int x;
+        cin >> x;
+        speed.pb(x);
+    }
+    cout << recurs(mask, true) << endl;
+
 
     return 0;
 }

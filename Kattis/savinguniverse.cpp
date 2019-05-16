@@ -14,8 +14,6 @@ using namespace std;
         #define printcaseu cout << "Case " << count_ << ": "
         #define MOD 1000000007
         #define LSOne(S) ((S)&(-S))
-        #define SZ(S) S.size()
-        #define ALL(S) S.begin(), S.end()
         #define pb push_back
         #define fi first
         #define se second
@@ -134,7 +132,41 @@ int main ()
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    
+    Tloop {
+        bool prtama = true;
+        Nloop {
+            string x;
+            if (prtama) {
+                getline(cin, x);
+                prtama = false;
+            }
+            getline(cin, x);
+        }
+
+        int counter = 0;
+
+        usets lst;
+
+        int Q;
+        cin >> Q;
+        prtama = true;
+        for (int i = 0; i < Q; i++) {
+            string x;
+            if (prtama) {
+                getline(cin, x);
+                prtama = false;
+            }
+            getline(cin, x);
+            lst.insert(x);
+            if (lst.size() == N) {
+                lst.clear();
+                lst.insert(x);
+                counter++;
+            }
+        }
+
+        printcaseg << counter << endl;
+    }
 
     return 0;
 }
