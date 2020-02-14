@@ -113,9 +113,9 @@ int main ()
   int a, b, c;
 
   cin >> a >> b >> c;
-
+  a--;
   int d = b/c;
-  cout << a /d << endl;  
+  cout << ceil(double(double(a)/double(d))) << endl;  
 
   return 0;
 }

@@ -1,4 +1,4 @@
-/Users/chrismaxheart/Documents/Competitive-Programming/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/chrismaxheart/Documents/Competitive-Programming/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/chrismaxheart/Documents/Competitive-Programming/cmake-build-debug/CMakeFiles/templatecpp.dir
-/Users/chrismaxheart/Documents/Competitive-Programming/cmake-build-debug/CMakeFiles/Competitive_Programming.dir
+/Users/kurniawans/Documents/Competitive-Programming/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/kurniawans/Documents/Competitive-Programming/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/kurniawans/Documents/Competitive-Programming/cmake-build-debug/CMakeFiles/templatecpp.dir
+/Users/kurniawans/Documents/Competitive-Programming/cmake-build-debug/CMakeFiles/Competitive_Programming.dir

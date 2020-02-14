@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/templatecpp.dir/templatecpp.cpp.o"
-  "templatecpp.pdb"
   "templatecpp"
+  "templatecpp.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

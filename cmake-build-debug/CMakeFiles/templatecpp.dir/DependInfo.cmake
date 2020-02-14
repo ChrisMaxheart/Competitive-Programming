@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/chrismaxheart/Documents/Competitive-Programming/templatecpp.cpp" "/Users/chrismaxheart/Documents/Competitive-Programming/cmake-build-debug/CMakeFiles/templatecpp.dir/templatecpp.cpp.o"
+  "/Users/kurniawans/Documents/Competitive-Programming/templatecpp.cpp" "/Users/kurniawans/Documents/Competitive-Programming/cmake-build-debug/CMakeFiles/templatecpp.dir/templatecpp.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
