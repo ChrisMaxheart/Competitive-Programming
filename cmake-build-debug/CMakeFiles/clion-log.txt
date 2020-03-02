@@ -1,26 +1,18 @@
-"/Users/chrismaxheart/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/191.6183.77/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=/usr/local/bin/gcc-8 -DCMAKE_CXX_COMPILER=/usr/local/bin/g++-8 -G "CodeBlocks - Unix Makefiles" /Users/chrismaxheart/Documents/Competitive-Programming
--- The C compiler identification is GNU 8.3.0
--- The CXX compiler identification is GNU 8.3.0
--- Checking whether C compiler has -isysroot
--- Checking whether C compiler has -isysroot - yes
--- Checking whether C compiler supports OSX deployment target flag
--- Checking whether C compiler supports OSX deployment target flag - yes
--- Check for working C compiler: /usr/local/bin/gcc-8
--- Check for working C compiler: /usr/local/bin/gcc-8 -- works
+"/Users/kurniawans/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/192.6817.18/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/kurniawans/Documents/Competitive-Programming
+-- The C compiler identification is AppleClang 11.0.0.11000033
+-- The CXX compiler identification is AppleClang 11.0.0.11000033
+-- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc
+-- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc -- works
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
 -- Detecting C compile features
 -- Detecting C compile features - done
--- Checking whether CXX compiler has -isysroot
--- Checking whether CXX compiler has -isysroot - yes
--- Checking whether CXX compiler supports OSX deployment target flag
--- Checking whether CXX compiler supports OSX deployment target flag - yes
--- Check for working CXX compiler: /usr/local/bin/g++-8
--- Check for working CXX compiler: /usr/local/bin/g++-8 -- works
+-- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++
+-- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -- works
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Configuring done
 -- Generating done
--- Build files have been written to: /Users/chrismaxheart/Documents/Competitive-Programming/cmake-build-debug
+-- Build files have been written to: /Users/kurniawans/Documents/Competitive-Programming/cmake-build-debug

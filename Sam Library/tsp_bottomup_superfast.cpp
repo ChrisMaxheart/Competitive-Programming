@@ -11,8 +11,6 @@ int N;
 int dist[MAX][MAX];
 int dp[1 << MAX][MAX];
 
-bool first = true;
-
 int tsp(){
     // cout << "test" << endl;
     for (int i = 0; i < (1 << MAX); i++) {

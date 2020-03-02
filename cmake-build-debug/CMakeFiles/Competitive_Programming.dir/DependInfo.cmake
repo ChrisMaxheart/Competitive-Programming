@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/chrismaxheart/Documents/Competitive-Programming/headerlist.cpp" "/Users/chrismaxheart/Documents/Competitive-Programming/cmake-build-debug/CMakeFiles/Competitive_Programming.dir/headerlist.cpp.o"
-  "/Users/chrismaxheart/Documents/Competitive-Programming/main.cpp" "/Users/chrismaxheart/Documents/Competitive-Programming/cmake-build-debug/CMakeFiles/Competitive_Programming.dir/main.cpp.o"
+  "/Users/kurniawans/Documents/Competitive-Programming/headerlist.cpp" "/Users/kurniawans/Documents/Competitive-Programming/cmake-build-debug/CMakeFiles/Competitive_Programming.dir/headerlist.cpp.o"
+  "/Users/kurniawans/Documents/Competitive-Programming/main.cpp" "/Users/kurniawans/Documents/Competitive-Programming/cmake-build-debug/CMakeFiles/Competitive_Programming.dir/main.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
