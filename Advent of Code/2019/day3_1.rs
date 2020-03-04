@@ -2,8 +2,9 @@ use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
 use std::collections::HashSet;
+use std::cmp;
 
-#[derive(PartialEq, Eq, Hash)]
+#[derive(PartialEq, Eq, Hash, Copy, Clone)]
 struct Coordinate {
     x: i32,
     y: i32,
@@ -28,16 +29,21 @@ struct Solver {
 }
 
 impl Solver {
-    fn solve(&self) {
-        self.get_intersection();
+    fn solve(&self) -> i32 {
+        let intersections = self.get_intersections();
+        let mut mini = i32::max_value();
+        for intersection in intersections {
+            mini = cmp::min(self.manhattan_distance(intersection), mini);
+        }
+        mini
     }
 
-    fn get_intersection(&self) {
+    fn get_intersections(&self) -> HashSet<Coordinate> {
         let coordinates_from_commands_1 = self.get_coordinates_passed(&self.commands_1);
         let coordinates_from_commands_2 = self.get_coordinates_passed(&self.commands_2);
-        let intersections: HashSet<Coordinate> = coordinates_from_commands_1.intersection(&coordinates_from_commands_2).collect();
+        let intersections: HashSet<Coordinate> = coordinates_from_commands_1.intersection(&coordinates_from_commands_2).map(|x| *x).collect();
 
-        println!("{}", intersections.len());
+        intersections
     }
 
     fn get_coordinates_passed(&self, commands: &Vec<String>) -> HashSet<Coordinate> {
@@ -46,7 +52,7 @@ impl Solver {
         for command in commands {
             let (coordinate, coordinate_from_command) = self.get_coordinates_from_command(current_coordinate, &command);
             current_coordinate = coordinate;
-            coordinate_passed = coordinate_passed.union(&coordinate_from_command).collect();
+            coordinate_passed.extend(&coordinate_from_command)
         }
         coordinate_passed
     }
@@ -54,7 +60,7 @@ impl Solver {
     fn get_coordinates_from_command(&self, mut current_coordinate: Coordinate, command: &String) -> (Coordinate, HashSet<Coordinate>) {
         let (dir, amt) = command.split_at(1);
         let amt: i32 = amt.parse().unwrap();
-        let coordinates = HashSet::new();
+        let mut coordinates = HashSet::new();
         for _i in 0..amt {
             current_coordinate = self.get_next_coordinate(current_coordinate, dir);
             coordinates.insert(current_coordinate);
@@ -87,6 +93,6 @@ fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
 fn main() {
     let inp = InputReader { filename: String::from("./test.txt") }.read();
     let solver = Solver { commands_1: inp[0].split(",").map(|x| String::from(x)).collect(), commands_2: inp[1].split(",").map(|x| String::from(x)).collect() };
-    solver.solve();
+    println!("{}", solver.solve());
 }
 
