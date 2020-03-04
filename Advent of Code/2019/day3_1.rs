@@ -41,7 +41,7 @@ impl Solver {
     fn get_intersections(&self) -> HashSet<Coordinate> {
         let coordinates_from_commands_1 = self.get_coordinates_passed(&self.commands_1);
         let coordinates_from_commands_2 = self.get_coordinates_passed(&self.commands_2);
-        let intersections: HashSet<Coordinate> = coordinates_from_commands_1.intersection(&coordinates_from_commands_2).map(|x| *x).collect();
+        let intersections: HashSet<Coordinate> = coordinates_from_commands_1.intersection(&coordinates_from_commands_2).copied().collect();
 
         intersections
     }
