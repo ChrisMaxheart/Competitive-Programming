@@ -128,18 +128,6 @@ using namespace std;
             return ans;
         }
 
-        vector<vi> gen_2d_vi(int size_1, int size_2) {
-            vector<vi> result;
-            for (int i = 0; i < size_1; i++) {
-                vi lst;
-                for (int j = 0; j < size_2; j++) {
-                    lst.pb(-1);
-                }
-                lst.pb(-1);
-                result.pb(lst);
-            }
-            return result;
-        }
 
 int main ()
 {
@@ -147,7 +135,54 @@ int main ()
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    
+    Tloop {
+        int x, y;
+        string s;
+        cin >> x >> y >> s;
+
+        vi lst;
+        vector<vi> dp;
+        int c = 1;
+        int j = 2;
+        int q = 0;
+
+        for (auto x: s) {
+            if (x == 'C') {
+                lst.pb(c);
+            } else if (x == 'J') {
+                lst.pb(j);
+            } else {
+                lst.pb(q);
+            }
+        }
+        reverse(lst.begin(), lst.end());
+        for (int i = 0; i < 3; i++) {
+            vi lst2;
+            for (auto x: s) {
+                lst2.pb(-1);
+            }
+            lst2.pb(-1);
+            dp.pb(lst2);
+        }
+
+        dp[c][0] = 0;
+        dp[j][0] = 0;
+        for (int i = 1; i < lst.size() + 1; i++) {
+            int elem = lst[i-1];
+            if (elem == c) {
+                dp[c][i] = dp[c][i-1];
+                dp[j][i] = dp[c][i-1] + y;
+            } else if (elem == j) {
+                dp[c][i] = dp[j][i-1] + x;
+                dp[j][i] = dp[j][i-1];
+            } else {
+                dp[c][i] = min(dp[c][i-1], dp[j][i-1] + x);
+                dp[j][i] = min(dp[j][i-1], dp[c][i-1] + y);
+            }
+        }
+        int maxi = lst.size();
+        printcaseg << min(dp[c][maxi], dp[j][maxi]) << endl;
+    }
 
     return 0;
 }
